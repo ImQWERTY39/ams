@@ -1,0 +1,97 @@
+import tkinter as tk
+
+import constants
+from functions import database
+
+from dashboard import (
+    add_flat_page,
+    modify_flat_page,
+    delete_flat_page,
+    display_flats_page,
+)
+
+
+def page(root: tk.Tk):
+    table_one, table_two = database.load_tables()
+
+    dashboard_frame = tk.Frame(
+        root,
+        width=constants.SCREEN_WIDTH,
+        height=constants.SCREEN_HEIGHT,
+        bg=constants.BACKGROUND_COLOUR,
+    )
+    dashboard_frame.place(x=0, y=0)
+
+    heading = tk.Label(
+        dashboard_frame,
+        text="Dashboard",
+        bg=constants.BACKGROUND_COLOUR,
+        fg=constants.FOREGROUND_COLOUR,
+        font=("palatino", 32),
+    )
+    heading.place(x=280, y=25)
+
+    add_flat_button = tk.Button(
+        dashboard_frame,
+        text="Add flat",
+        relief="groove",
+        width=20,
+        command=lambda: add_flat_page.add_flat_page(
+            dashboard_frame, table_one, table_two
+        ),
+    )
+    add_flat_button.place(x=150, y=150)
+
+    modify_flat_info_button = tk.Button(
+        dashboard_frame,
+        text="Modify flat information",
+        relief="groove",
+        width=20,
+        command=lambda: modify_flat_page.page1(dashboard_frame, table_one, table_two),
+    )
+    modify_flat_info_button.place(x=150, y=200)
+
+    display_flat_button = tk.Button(
+        dashboard_frame,
+        text="Display flats",
+        relief="groove",
+        width=20,
+        command=lambda: display_flats_page.display_flats(dashboard_frame, table_one),
+    )
+    display_flat_button.place(x=150, y=250)
+
+    delete_flat_button = tk.Button(
+        dashboard_frame,
+        text="Delete flat",
+        relief="groove",
+        width=20,
+        command=lambda: delete_flat_page.delete_flat_page(
+            dashboard_frame, table_one, table_two
+        ),
+    )
+    delete_flat_button.place(x=150, y=300)
+
+    buy_flat_button = tk.Button(
+        dashboard_frame,
+        text="Buy flat",
+        relief="groove",
+        width=20,
+    )
+    buy_flat_button.place(x=450, y=150)
+
+    sell_flat_button = tk.Button(
+        dashboard_frame,
+        text="Sell flat",
+        relief="groove",
+        width=20,
+    )
+    sell_flat_button.place(x=450, y=200)
+
+    quit_button = tk.Button(
+        dashboard_frame,
+        text="Quit",
+        relief="groove",
+        width=20,
+        command=root.destroy,
+    )
+    quit_button.place(x=300, y=400)
