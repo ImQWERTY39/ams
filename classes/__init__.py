@@ -1,8 +1,8 @@
 class FlatInfo:
     availability: bool
     on_rent: bool
-    owner_name: str
-    tenant_name: str
+    _owner_name: str
+    _tenant_name: str
 
     def __init__(
         self,
@@ -13,15 +13,15 @@ class FlatInfo:
     ) -> None:
         self.availability = availability
         self.on_rent = on_rent
-        self.owner_name = owner_name
-        self.tenant_name = tenant_name
+        self._owner_name = owner_name
+        self._tenant_name = tenant_name
 
     def to_dict(self) -> dict:
         return {
             "availability": self.availability,
             "on_rent": self.on_rent,
-            "owner_name": self.owner_name,
-            "tenant_name": self.tenant_name,
+            "owner_name": self._owner_name,
+            "tenant_name": self._tenant_name,
         }
 
     @classmethod
@@ -32,6 +32,30 @@ class FlatInfo:
             dictionary["owner_name"],
             dictionary["tenant_name"],
         )
+
+    @property
+    def owner_name(self):
+        if self.on_rent or (not self.availability):
+            return self._owner_name
+        else:
+            return None
+
+    @property
+    def tenant_name(self):
+        if self.on_rent and (not self.availability):
+            return self._tenant_name
+        else:
+            return None
+
+    @owner_name.setter
+    def owner_name(self, new_owner_name):
+        if self.on_rent or (not self.availability):
+            self._owner_name = new_owner_name
+
+    @tenant_name.setter
+    def tenant_name(self, new_tenant_name):
+        if self.on_rent and (not self.availability):
+            return self._tenant_name
 
 
 class OwnerInfo:
