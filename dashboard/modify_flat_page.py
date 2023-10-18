@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
-import constants
+from constants import *
 import functions
 from functions import database
 from classes import FlatInfo, OwnerInfo
@@ -12,17 +12,17 @@ def page1(
 ):
     modify_flat_frame = tk.Frame(
         root,
-        bg=constants.BACKGROUND_COLOUR,
-        width=constants.SCREEN_WIDTH,
-        height=constants.SCREEN_HEIGHT,
+        bg=BACKGROUND_COLOUR,
+        width=SCREEN_WIDTH,
+        height=SCREEN_HEIGHT,
     )
     modify_flat_frame.place(x=0, y=0)
 
     heading = tk.Label(
         modify_flat_frame,
         text="Modify flat",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("boulder", 32),
     )
     heading.place(x=280, y=25)
@@ -30,8 +30,8 @@ def page1(
     flat_number_label = tk.Label(
         modify_flat_frame,
         text="Enter flat number",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     flat_number_label.place(x=200, y=100)
@@ -69,7 +69,7 @@ def page2(
     table_one: dict[str, FlatInfo],
     table_two: dict[str, OwnerInfo],
 ):
-    if not table_one.__contains__(flat_number):
+    if flat_number not in table_one:
         messagebox.showerror(
             "Flat doesn't exist", f"Flat no. {flat_number} doesn't exist"
         )
@@ -79,17 +79,17 @@ def page2(
 
     modify_flat_frame = tk.Frame(
         root,
-        bg=constants.BACKGROUND_COLOUR,
-        width=constants.SCREEN_WIDTH,
-        height=constants.SCREEN_HEIGHT,
+        bg=BACKGROUND_COLOUR,
+        width=SCREEN_WIDTH,
+        height=SCREEN_HEIGHT,
     )
     modify_flat_frame.place(x=0, y=0)
 
     heading = tk.Label(
         modify_flat_frame,
         text="Change flat details",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("boulder", 32),
     )
     heading.place(x=260, y=25)
@@ -97,8 +97,8 @@ def page2(
     flat_number_label = tk.Label(
         modify_flat_frame,
         text="Flat number",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     flat_number_label.place(x=25, y=150)
@@ -110,8 +110,8 @@ def page2(
     availability_label = tk.Label(
         modify_flat_frame,
         text="Availability",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     availability_label.place(x=25, y=200)
@@ -122,8 +122,8 @@ def page2(
         variable=availability_option,
         onvalue=True,
         offvalue=False,
-        bg=constants.BACKGROUND_COLOUR,
-        activebackground=constants.BACKGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        activebackground=BACKGROUND_COLOUR,
     )
     availability_checkbox.place(x=250, y=205)
 
@@ -133,8 +133,8 @@ def page2(
     on_rent_label = tk.Label(
         modify_flat_frame,
         text="For rent",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     on_rent_label.place(x=25, y=250)
@@ -145,8 +145,8 @@ def page2(
         variable=on_rent_option,
         onvalue=True,
         offvalue=False,
-        bg=constants.BACKGROUND_COLOUR,
-        activebackground=constants.BACKGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        activebackground=BACKGROUND_COLOUR,
     )
     on_rent_checkbox.place(x=250, y=255)
 
@@ -159,8 +159,8 @@ def page2(
     owner_name_label = tk.Label(
         modify_flat_frame,
         text="Owner's Name",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     owner_name_label.place(x=25, y=300)
@@ -172,8 +172,8 @@ def page2(
     tenant_name_label = tk.Label(
         modify_flat_frame,
         text="Tenant's Name",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     tenant_name_label.place(x=25, y=350)
@@ -188,8 +188,8 @@ def page2(
     phone_number_label = tk.Label(
         modify_flat_frame,
         text="Phone no.",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     phone_number_label.place(x=425, y=150)
@@ -201,8 +201,8 @@ def page2(
     email_label = tk.Label(
         modify_flat_frame,
         text="Email",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     email_label.place(x=425, y=200)

@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-import constants
+from constants import *
 import functions
 from classes import FlatInfo
 
@@ -8,17 +8,17 @@ from classes import FlatInfo
 def display_flats(root: tk.Frame, table_one: dict[str, FlatInfo]):
     display_flat_frame = tk.Frame(
         root,
-        bg=constants.BACKGROUND_COLOUR,
-        width=constants.SCREEN_WIDTH,
-        height=constants.SCREEN_HEIGHT,
+        bg=BACKGROUND_COLOUR,
+        width=SCREEN_WIDTH,
+        height=SCREEN_HEIGHT,
     )
     display_flat_frame.place(x=0, y=0)
 
     heading = tk.Label(
         display_flat_frame,
         text="Display flats",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("boulder", 32),
     )
     heading.place(x=280, y=25)
@@ -26,19 +26,19 @@ def display_flats(root: tk.Frame, table_one: dict[str, FlatInfo]):
     columns = ("col1", "col2", "col3", "col4", "col5")
     tree = ttk.Treeview(display_flat_frame, columns=columns, show="headings", height=15)
 
-    tree.column("col1", anchor=tk.CENTER, width=constants.SCREEN_WIDTH // 5)
+    tree.column("col1", anchor=tk.CENTER, width=SCREEN_WIDTH // 5)
     tree.heading("col1", text="Flat No.")
 
-    tree.column("col2", anchor=tk.CENTER, width=constants.SCREEN_WIDTH // 5)
+    tree.column("col2", anchor=tk.CENTER, width=SCREEN_WIDTH // 5)
     tree.heading("col2", text="Availability")
 
-    tree.column("col3", anchor=tk.CENTER, width=constants.SCREEN_WIDTH // 5)
+    tree.column("col3", anchor=tk.CENTER, width=SCREEN_WIDTH // 5)
     tree.heading("col3", text="On Rent")
 
-    tree.column("col4", width=constants.SCREEN_WIDTH // 5)
+    tree.column("col4", width=SCREEN_WIDTH // 5)
     tree.heading("col4", text="Owner Name")
 
-    tree.column("col5", width=constants.SCREEN_WIDTH // 5)
+    tree.column("col5", width=SCREEN_WIDTH // 5)
     tree.heading("col5", text="Tenant Name")
 
     flats_info: list[tuple] = list()

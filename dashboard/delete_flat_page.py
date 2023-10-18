@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-import constants
+from constants import *
 import functions
 from functions import database
 from classes import FlatInfo, OwnerInfo
@@ -11,17 +11,17 @@ def delete_flat_page(
 ):
     delete_flat_frame = tk.Frame(
         root,
-        bg=constants.BACKGROUND_COLOUR,
-        width=constants.SCREEN_WIDTH,
-        height=constants.SCREEN_HEIGHT,
+        bg=BACKGROUND_COLOUR,
+        width=SCREEN_WIDTH,
+        height=SCREEN_HEIGHT,
     )
     delete_flat_frame.place(x=0, y=0)
 
     heading = tk.Label(
         delete_flat_frame,
         text="Delete flat",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("boulder", 32),
     )
     heading.place(x=280, y=25)
@@ -29,8 +29,8 @@ def delete_flat_page(
     flat_number_label = tk.Label(
         delete_flat_frame,
         text="Enter flat number",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     flat_number_label.place(x=200, y=100)
@@ -63,7 +63,7 @@ def show_flat_and_owner_details(
     table_two: dict[str, OwnerInfo],
     delete_flat_frame: tk.Frame,
 ):
-    if not table_one.__contains__(flat_number):
+    if flat_number not in table_one:
         messagebox.showerror(
             "Flat doesn't exist", f"Flat no. {flat_number} doesn't exist"
         )
@@ -79,8 +79,8 @@ Flat number: {flat_number}\t\tOwner name: {flat_info.owner_name}
 Availability: {flat_info.availability}\t\tPhone number: {owner_info.phone_number}
 On Rent: {flat_info.on_rent}\t\tEmail: {owner_info.email}
 Tenant name: {flat_info.tenant_name}\t\tFlat's owned: {owner_info.flats_owned}""",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 12),
         anchor=tk.W,
         justify="left",

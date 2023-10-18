@@ -13,8 +13,8 @@ class FlatInfo:
     ) -> None:
         self.availability = availability
         self.on_rent = on_rent
-        self._owner_name = owner_name
-        self._tenant_name = tenant_name
+        self._owner_name = owner_name if owner_name else None
+        self._tenant_name = tenant_name if owner_name else None
 
     def to_dict(self) -> dict:
         return {
@@ -48,14 +48,18 @@ class FlatInfo:
             return None
 
     @owner_name.setter
-    def owner_name(self, new_owner_name):
+    def owner_name(self, new_owner_name: str):
         if self.on_rent or (not self.availability):
-            self._owner_name = new_owner_name
+            self._owner_name = (
+                new_owner_name.strip().upper() if new_owner_name is not None else None
+            )
 
     @tenant_name.setter
-    def tenant_name(self, new_tenant_name):
+    def tenant_name(self, new_tenant_name: str):
         if self.on_rent and (not self.availability):
-            return self._tenant_name
+            self._tenant_name = (
+                new_tenant_name.strip().upper() if new_tenant_name is not None else None
+            )
 
 
 class OwnerInfo:

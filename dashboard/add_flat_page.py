@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
-import constants
+from constants import *
 import functions
 from functions import database
 from classes import FlatInfo, OwnerInfo
@@ -14,17 +14,17 @@ def add_flat_page(
 ):
     add_flat_frame = tk.Frame(
         root,
-        bg=constants.BACKGROUND_COLOUR,
-        width=constants.SCREEN_WIDTH,
-        height=constants.SCREEN_HEIGHT,
+        bg=BACKGROUND_COLOUR,
+        width=SCREEN_WIDTH,
+        height=SCREEN_HEIGHT,
     )
     add_flat_frame.place(x=0, y=0)
 
     heading = tk.Label(
         add_flat_frame,
         text="Enter flat details",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("boulder", 32),
     )
     heading.place(x=260, y=25)
@@ -32,8 +32,8 @@ def add_flat_page(
     flat_number_label = tk.Label(
         add_flat_frame,
         text="Flat number",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     flat_number_label.place(x=25, y=150)
@@ -44,8 +44,8 @@ def add_flat_page(
     availability_label = tk.Label(
         add_flat_frame,
         text="Availability",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     availability_label.place(x=25, y=200)
@@ -56,16 +56,16 @@ def add_flat_page(
         variable=availability_option,
         onvalue=True,
         offvalue=False,
-        bg=constants.BACKGROUND_COLOUR,
-        activebackground=constants.BACKGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        activebackground=BACKGROUND_COLOUR,
     )
     availability_checkbox.place(x=250, y=205)
 
     on_rent_label = tk.Label(
         add_flat_frame,
         text="For rent",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     on_rent_label.place(x=25, y=250)
@@ -76,16 +76,16 @@ def add_flat_page(
         variable=on_rent_option,
         onvalue=True,
         offvalue=False,
-        bg=constants.BACKGROUND_COLOUR,
-        activebackground=constants.BACKGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        activebackground=BACKGROUND_COLOUR,
     )
     on_rent_checkbox.place(x=250, y=255)
 
     owner_name_label = tk.Label(
         add_flat_frame,
         text="Owner's Name",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     owner_name_label.place(x=25, y=300)
@@ -96,8 +96,8 @@ def add_flat_page(
     tenant_name_label = tk.Label(
         add_flat_frame,
         text="Tenant's Name",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     tenant_name_label.place(x=25, y=350)
@@ -108,8 +108,8 @@ def add_flat_page(
     phone_number_label = tk.Label(
         add_flat_frame,
         text="Phone no.",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     phone_number_label.place(x=425, y=150)
@@ -120,8 +120,8 @@ def add_flat_page(
     email_label = tk.Label(
         add_flat_frame,
         text="Email",
-        bg=constants.BACKGROUND_COLOUR,
-        fg=constants.FOREGROUND_COLOUR,
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
     email_label.place(x=425, y=200)
@@ -148,9 +148,9 @@ def add_flat_page(
             flat_number_entry.get().strip(),
             availability_option.get(),
             on_rent_option.get(),
-            owner_name_entry.get().strip().upper(),
-            tenant_name_entry.get().strip().upper(),
-            phone_number_entry.get().strip(),
+            owner_name_entry.get(),
+            tenant_name_entry.get(),
+            phone_number_entry.get(),
             email_entry.get().strip(),
         ),
     )
@@ -169,14 +169,17 @@ def submit_details(
     phone_number: str,
     email: str,
 ):
-    if not is_valid_phone_number(phone_number):
+    owned = on_rent or (not availability)
+    rented = on_rent and (not availability)
+
+    if not is_valid_phone_number(phone_number) and owned:
         messagebox.showerror(
             "Invalid phone number",
             "Phone number must contain 10 numeric character only",
         )
         return
 
-    if not is_valid_email(email):
+    if not is_valid_email(email) and owned:
         messagebox.showerror(
             "Invalid email address",
             "The email address must contain a username and domain separated with '@'",
@@ -198,7 +201,7 @@ def submit_details(
 
     if owner_name in table_two:
         table_two[owner_name].flats_owned.append(flat_number)
-    else:
+    elif owner_name:
         table_two[owner_name] = OwnerInfo(phone_number, email, [flat_number])
 
     database.write_tables(table_one, table_two)

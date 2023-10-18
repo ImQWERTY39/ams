@@ -1,21 +1,20 @@
+import sys
 import tkinter as tk
 import home
-
+import dashboard
 import constants
 
 
-def create_window() -> tk.Tk:
-    root = tk.Tk()
+root = tk.Tk()
 
-    root.geometry(f"{constants.SCREEN_WIDTH}x{constants.SCREEN_HEIGHT}+300+100")
-    root.configure(bg=constants.BACKGROUND_COLOUR)
-    root.resizable(False, False)
-    root.title(constants.TITLE)
+root.geometry(f"{constants.SCREEN_WIDTH}x{constants.SCREEN_HEIGHT}+300+100")
+root.configure(bg=constants.BACKGROUND_COLOUR)
+root.resizable(False, False)
+root.title(constants.TITLE)
 
-    return root
+if sys.argv.pop() == "notest":
+    home.home_page(root)
+else:
+    dashboard.page(root)
 
-
-root = create_window()
-
-home.home_page(root)
 root.mainloop()

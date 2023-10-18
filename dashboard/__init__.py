@@ -8,6 +8,8 @@ from dashboard import (
     modify_flat_page,
     delete_flat_page,
     display_flats_page,
+    buy_flat_page,
+    sell_flat_page,
 )
 
 
@@ -76,6 +78,7 @@ def page(root: tk.Tk):
         text="Buy flat",
         relief="groove",
         width=20,
+        command=lambda: buy_flat_page.page1(dashboard_frame, table_one, table_two),
     )
     buy_flat_button.place(x=450, y=150)
 
@@ -84,6 +87,7 @@ def page(root: tk.Tk):
         text="Sell flat",
         relief="groove",
         width=20,
+        command=lambda: sell_flat_page.page1(dashboard_frame, table_one, table_two),
     )
     sell_flat_button.place(x=450, y=200)
 
