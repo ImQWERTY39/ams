@@ -1,4 +1,3 @@
-import sys
 import tkinter as tk
 import home
 import dashboard
@@ -12,9 +11,5 @@ root.configure(bg=constants.BACKGROUND_COLOUR)
 root.resizable(False, False)
 root.title(constants.TITLE)
 
-if sys.argv.pop() == "notest":
-    home.home_page(root)
-else:
-    dashboard.page(root)
-
+home.home_page(root)
 root.mainloop()
