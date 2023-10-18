@@ -11,5 +11,10 @@ root.configure(bg=constants.BACKGROUND_COLOUR)
 root.resizable(False, False)
 root.title(constants.TITLE)
 
+# swap comments for testing
+# delete import dashboard and dashboard page function when finished
+
 home.home_page(root)
+# dashboard.page(root)
+
 root.mainloop()
