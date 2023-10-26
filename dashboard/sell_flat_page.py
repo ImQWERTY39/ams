@@ -21,7 +21,7 @@ def page1(
 
     heading = tk.Label(
         buy_flat_frame,
-        text="Delete flat",
+        text="Sell flat",
         bg=BACKGROUND_COLOUR,
         fg=FOREGROUND_COLOUR,
         font=("boulder", 32),

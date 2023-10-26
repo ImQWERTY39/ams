@@ -1,0 +1,20 @@
+{
+    "100": {
+        "availability": true,
+        "on_rent": false,
+        "owner_name": "ANIRUDH",
+        "tenant_name": "SHARAN"
+    },
+    "101": {
+        "availability": false,
+        "on_rent": true,
+        "owner_name": "ANIRUDH5468",
+        "tenant_name": "LMAO"
+    },
+    "102": {
+        "availability": true,
+        "on_rent": true,
+        "owner_name": "SANTOSH",
+        "tenant_name": null
+    }
+}

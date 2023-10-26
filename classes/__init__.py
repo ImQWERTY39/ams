@@ -13,8 +13,8 @@ class FlatInfo:
     ) -> None:
         self.availability = availability
         self.on_rent = on_rent
-        self._owner_name = owner_name if owner_name else None
-        self._tenant_name = tenant_name if owner_name else None
+        self._owner_name = owner_name.strip().upper() if owner_name is not None and owner_name else None
+        self._tenant_name = tenant_name.strip().upper() if tenant_name is not None and tenant_name else None
 
     def to_dict(self) -> dict:
         return {

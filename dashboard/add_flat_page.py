@@ -200,9 +200,9 @@ def submit_details(
     table_one[flat_number] = FlatInfo(availability, on_rent, owner_name, tenant_name)
 
     if owner_name in table_two:
-        table_two[owner_name].flats_owned.append(flat_number)
+        table_two[owner_name.upper()].flats_owned.append(flat_number)
     elif owner_name:
-        table_two[owner_name] = OwnerInfo(phone_number, email, [flat_number])
+        table_two[owner_name.upper()] = OwnerInfo(phone_number, email, [flat_number])
 
     database.write_tables(table_one, table_two)
     messagebox.showinfo(

@@ -38,6 +38,7 @@ def home_page(root: tk.Tk):
         font=("", 12),
         command=lambda: goto_login_screen(root, home_page_frame),
     )
+    login_button.bind("<Return>", lambda _: goto_login_screen(root, home_page_frame))
     login_button.place(x=600, y=300)
 
 

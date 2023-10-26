@@ -22,12 +22,12 @@ def page1(
 
     heading = tk.Label(
         buy_flat_frame,
-        text="Delete flat",
+        text="Buy flat",
         bg=BACKGROUND_COLOUR,
         fg=FOREGROUND_COLOUR,
         font=("boulder", 32),
     )
-    heading.place(x=280, y=25)
+    heading.place(x=325, y=25)
 
     flat_number_label = tk.Label(
         buy_flat_frame,
@@ -36,7 +36,7 @@ def page1(
         fg=FOREGROUND_COLOUR,
         font=("monospace", 18),
     )
-    flat_number_label.place(x=200, y=100)
+    flat_number_label.place(x=175, y=100)
 
     flat_number_entry = tk.Entry(buy_flat_frame, width=35)
     flat_number_entry.place(x=400, y=105)
@@ -49,7 +49,7 @@ def page1(
             buy_flat_frame, table_one, table_two, flat_number_entry.get()
         ),
     )
-    submit_button.place(x=350, y=145)
+    submit_button.place(x=350, y=450)
 
     quit_button = tk.Button(
         buy_flat_frame,
@@ -88,7 +88,7 @@ def _page2(
             fg=FOREGROUND_COLOUR,
             font=("monospace", 18),
         )
-        tenant_name_label.place(x=25, y=350)
+        tenant_name_label.place(x=275, y=75)
 
         tenant_name_entry = tk.Entry(buy_flat_frame, width=15)
         tenant_name_entry.place(x=250, y=355)
@@ -114,10 +114,10 @@ def _page2(
             fg=FOREGROUND_COLOUR,
             font=("monospace", 18),
         )
-        owner_name_label.place(x=25, y=300)
+        owner_name_label.place(x=30, y=150)
 
         owner_name_entry = tk.Entry(buy_flat_frame, width=15)
-        owner_name_entry.place(x=250, y=305)
+        owner_name_entry.place(x=250, y=155)
 
         phone_number_label = tk.Label(
             buy_flat_frame,
@@ -167,6 +167,10 @@ def add_tenant(
     flat_number: str,
     tenant_name: str,
 ):
+    if not tenant_name:
+        messagebox.showerror("No Name", "Enter a name")
+        return
+
     table_one[flat_number].availability = False
     table_one[flat_number].tenant_name = tenant_name
 

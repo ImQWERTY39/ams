@@ -70,22 +70,23 @@ def show_flat_and_owner_details(
         return
 
     flat_info = table_one[flat_number]
-    owner_info = table_two[flat_info.owner_name]
+    owner_info = table_two[flat_info.owner_name] if flat_info.owner_name is not None else None
 
-    info_label = tk.Label(
-        delete_flat_frame,
-        text=f"""\
-Flat number: {flat_number}\t\tOwner name: {flat_info.owner_name}
-Availability: {flat_info.availability}\t\tPhone number: {owner_info.phone_number}
-On Rent: {flat_info.on_rent}\t\tEmail: {owner_info.email}
-Tenant name: {flat_info.tenant_name}\t\tFlat's owned: {owner_info.flats_owned}""",
-        bg=BACKGROUND_COLOUR,
-        fg=FOREGROUND_COLOUR,
-        font=("monospace", 12),
-        anchor=tk.W,
-        justify="left",
-    )
-    info_label.place(x=50, y=250)
+
+    #info_label = tk.Label(
+    #    delete_flat_frame,
+#        text=f"""\
+#Flat number: {flat_number}\t\tOwner name: {flat_info.owner_name}
+#Availability: {flat_info.availability}\t\tPhone number: {owner_info.phone_number}
+#On Rent: {flat_info.on_rent}\t\tEmail: {owner_info.email}
+#Tenant name: {flat_info.tenant_name}\t\tFlat's owned: {owner_info.flats_owned}""",
+#        bg=BACKGROUND_COLOUR,
+#        fg=FOREGROUND_COLOUR,
+#        font=("monospace", 12),
+#        anchor=tk.W,
+#        justify="left",
+#    )
+#    info_label.place(x=50, y=250)
 
     delete_button = tk.Button(
         delete_flat_frame,
