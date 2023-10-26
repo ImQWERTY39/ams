@@ -172,14 +172,14 @@ def submit_details(
     owned = on_rent or (not availability)
     rented = on_rent and (not availability)
 
-    if not is_valid_phone_number(phone_number) and owned:
+    if not functions.is_valid_phone_number(phone_number) and owned:
         messagebox.showerror(
             "Invalid phone number",
             "Phone number must contain 10 numeric character only",
         )
         return
 
-    if not is_valid_email(email) and owned:
+    if not functions.is_valid_email(email) and owned:
         messagebox.showerror(
             "Invalid email address",
             "The email address must contain a username and domain separated with '@'",
@@ -209,16 +209,3 @@ def submit_details(
         "Flat added successfully", f"Flat no. {flat_number} has been added successfully"
     )
     functions.delete_frame(add_flat_frame)
-
-
-def is_valid_phone_number(phone_number: str) -> bool:
-    for i in phone_number:
-        if not (48 <= ord(i) <= 57):
-            return False
-
-    return len(phone_number) == 10
-
-
-def is_valid_email(email: str) -> bool:
-    email_split = email.split("@")
-    return len(email_split) == 2

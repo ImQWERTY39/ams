@@ -188,6 +188,18 @@ def add_owner_info(
     phone_number: str,
     email: str,
 ):
+    if not owner_name:
+        messagebox.showerror("No Name", "Enter a name")
+        return
+
+    if not functions.is_valid_email(email):
+        messagebox.showerror("Invalid Email", "")
+        return
+
+    if not functions.is_valid_phone_number(phone_number):
+        messagebox.showerror("Invalid no.", "")
+        return
+
     table_one[flat_number].availability = False
     table_one[flat_number].owner_name = owner_name
 
