@@ -9,8 +9,8 @@ from classes import FlatInfo, OwnerInfo
 
 def add_flat_page(
     root: tk.Frame,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
 ):
     add_flat_frame = tk.Frame(
         root,
@@ -159,8 +159,8 @@ def add_flat_page(
 
 def submit_details(
     add_flat_frame: tk.Frame,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
     flat_number: str,
     availability: bool,
     on_rent: bool,
@@ -170,7 +170,6 @@ def submit_details(
     email: str,
 ):
     owned = on_rent or (not availability)
-    rented = on_rent and (not availability)
 
     if not functions.is_valid_phone_number(phone_number) and owned:
         messagebox.showerror(

@@ -6,9 +6,7 @@ from functions import database
 from classes import FlatInfo, OwnerInfo
 
 
-def delete_flat_page(
-    root: tk.Frame, table_one: dict[str, FlatInfo], table_two: dict[str, OwnerInfo]
-):
+def delete_flat_page(root: tk.Frame, table_one: dict, table_two: dict):
     delete_flat_frame = tk.Frame(
         root,
         bg=BACKGROUND_COLOUR,
@@ -59,8 +57,8 @@ def delete_flat_page(
 
 def show_flat_and_owner_details(
     flat_number: str,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
     delete_flat_frame: tk.Frame,
 ):
     if flat_number not in table_one:
@@ -70,23 +68,24 @@ def show_flat_and_owner_details(
         return
 
     flat_info = table_one[flat_number]
-    owner_info = table_two[flat_info.owner_name] if flat_info.owner_name is not None else None
+    owner_info = (
+        table_two[flat_info.owner_name] if flat_info.owner_name is not None else None
+    )
 
-
-    #info_label = tk.Label(
+    # info_label = tk.Label(
     #    delete_flat_frame,
-#        text=f"""\
-#Flat number: {flat_number}\t\tOwner name: {flat_info.owner_name}
-#Availability: {flat_info.availability}\t\tPhone number: {owner_info.phone_number}
-#On Rent: {flat_info.on_rent}\t\tEmail: {owner_info.email}
-#Tenant name: {flat_info.tenant_name}\t\tFlat's owned: {owner_info.flats_owned}""",
-#        bg=BACKGROUND_COLOUR,
-#        fg=FOREGROUND_COLOUR,
-#        font=("monospace", 12),
-#        anchor=tk.W,
-#        justify="left",
-#    )
-#    info_label.place(x=50, y=250)
+    #        text=f"""\
+    # Flat number: {flat_number}\t\tOwner name: {flat_info.owner_name}
+    # Availability: {flat_info.availability}\t\tPhone number: {owner_info.phone_number}
+    # On Rent: {flat_info.on_rent}\t\tEmail: {owner_info.email}
+    # Tenant name: {flat_info.tenant_name}\t\tFlat's owned: {owner_info.flats_owned}""",
+    #        bg=BACKGROUND_COLOUR,
+    #        fg=FOREGROUND_COLOUR,
+    #        font=("monospace", 12),
+    #        anchor=tk.W,
+    #        justify="left",
+    #    )
+    #    info_label.place(x=50, y=250)
 
     delete_button = tk.Button(
         delete_flat_frame,
@@ -101,8 +100,8 @@ def show_flat_and_owner_details(
 
 def delete_flat(
     flat_number: str,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
     delete_flat_frame: tk.Frame,
 ):
     if not messagebox.askyesno(

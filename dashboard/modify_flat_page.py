@@ -7,9 +7,7 @@ from functions import database
 from classes import FlatInfo, OwnerInfo
 
 
-def page1(
-    root: tk.Frame, table_one: dict[str, FlatInfo], table_two: dict[str, OwnerInfo]
-):
+def page1(root: tk.Frame, table_one: dict, table_two: dict):
     modify_flat_frame = tk.Frame(
         root,
         bg=BACKGROUND_COLOUR,
@@ -66,8 +64,8 @@ def page2(
     root: tk.Frame,
     modify_flat_frame: tk.Frame,
     flat_number: str,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_two: dict,
+    table_one: dict,
 ):
     if flat_number not in table_one:
         messagebox.showerror(
@@ -243,8 +241,8 @@ def page2(
 
 def submit_details(
     modify_flat_frame: tk.Frame,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
     flat_number_old: str,
     flat_number_new: str,
     availability: bool,
@@ -255,14 +253,14 @@ def submit_details(
     phone_number: str,
     email: str,
 ):
-    if not is_valid_phone_number(phone_number):
+    if not functions.is_valid_phone_number(phone_number):
         messagebox.showerror(
             "Invalid phone number",
             "Phone number must contain 10 numeric character only",
         )
         return
 
-    if not is_valid_email(email):
+    if not functions.is_valid_email(email):
         messagebox.showerror(
             "Invalid email address",
             "The email address must contain a username and domain separated with '@'",
@@ -293,16 +291,3 @@ def submit_details(
         f"Flat no. {flat_number_new} has been modified successfully",
     )
     functions.delete_frame(modify_flat_frame)
-
-
-def is_valid_phone_number(phone_number: str) -> bool:
-    for i in phone_number:
-        if not (48 <= ord(i) <= 57):
-            return False
-
-    return len(phone_number) == 10
-
-
-def is_valid_email(email: str) -> bool:
-    email_split = email.split("@")
-    return len(email_split) == 2

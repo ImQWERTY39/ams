@@ -9,8 +9,8 @@ from functions import database
 
 def page1(
     root: tk.Frame,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
 ):
     buy_flat_frame = tk.Frame(
         root,
@@ -62,8 +62,8 @@ def page1(
 
 def _page2(
     buy_flat_frame: tk.Frame,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
     flat_number: str,
 ):
     if flat_number not in table_one:
@@ -162,8 +162,8 @@ def _page2(
 
 def add_tenant(
     buy_flat_frame: tk.Tk,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
     flat_number: str,
     tenant_name: str,
 ):
@@ -181,8 +181,8 @@ def add_tenant(
 
 def add_owner_info(
     buy_flat_frame: tk.Tk,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
     flat_number: str,
     owner_name: str,
     phone_number: str,

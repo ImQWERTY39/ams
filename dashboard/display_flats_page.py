@@ -5,7 +5,7 @@ import functions
 from classes import FlatInfo
 
 
-def display_flats(root: tk.Frame, table_one: dict[str, FlatInfo]):
+def display_flats(root: tk.Frame, table_one: dict):
     display_flat_frame = tk.Frame(
         root,
         bg=BACKGROUND_COLOUR,

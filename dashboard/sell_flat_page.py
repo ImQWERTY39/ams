@@ -8,8 +8,8 @@ from functions import database
 
 def page1(
     root: tk.Frame,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
 ):
     buy_flat_frame = tk.Frame(
         root,
@@ -61,8 +61,8 @@ def page1(
 
 def _page2(
     buy_flat_frame: tk.Frame,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
     flat_number: str,
 ):
     if flat_number not in table_one:
@@ -106,8 +106,8 @@ Tenant name: {flat_info.tenant_name}\t\tFlat's owned: {owner_info.flats_owned}""
 
 def sell_flat(
     buy_flat_frame: tk.Frame,
-    table_one: dict[str, FlatInfo],
-    table_two: dict[str, OwnerInfo],
+    table_one: dict,
+    table_two: dict,
     flat_number: str,
 ):
     if not messagebox.askyesno(
