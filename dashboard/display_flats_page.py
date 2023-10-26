@@ -41,7 +41,7 @@ def display_flats(root: tk.Frame, table_one: dict):
     tree.column("col5", width=SCREEN_WIDTH // 5)
     tree.heading("col5", text="Tenant Name")
 
-    flats_info: list[tuple] = list()
+    flats_info = list()
 
     for flat_number, flat_info in table_one.items():
         owner_name = flat_info.owner_name
