@@ -4,7 +4,26 @@ from constants import *
 import functions
 
 
-def display_flats(root: tk.Frame, table_one: dict):
+def _get_all_flats(table_one: dict) -> list:
+    flats_info = list()
+
+    for flat_number, flat_info in table_one.items():
+        owner_name = flat_info.owner_name
+        tenant_name = flat_info.tenant_name
+        flats_info.append(
+            (
+                flat_number,
+                flat_info.availability,
+                flat_info.on_rent,
+                owner_name if owner_name is not None else "NONE",
+                tenant_name if tenant_name is not None else "NONE",
+            )
+        )
+
+    return flats_info
+
+
+def display_flats(root: tk.Frame, table_one: dict, filter_function=None):
     display_flat_frame = tk.Frame(
         root,
         bg=BACKGROUND_COLOUR,
@@ -44,20 +63,10 @@ def display_flats(root: tk.Frame, table_one: dict):
     tree.column("col5", width=SCREEN_WIDTH // 5)
     tree.heading("col5", text="Tenant Name")
 
-    flats_info = list()
-
-    for flat_number, flat_info in table_one.items():
-        owner_name = flat_info.owner_name
-        tenant_name = flat_info.tenant_name
-        flats_info.append(
-            (
-                flat_number,
-                flat_info.availability,
-                flat_info.on_rent,
-                owner_name if owner_name is not None else "NONE",
-                tenant_name if tenant_name is not None else "NONE",
-            )
-        )
+    if filter_function is None:
+        flats_info = _get_all_flats(table_one)
+    else:
+        flats_info = filter_function(table_one)
 
     for flats in flats_info:
         tree.insert("", tk.END, values=flats)
