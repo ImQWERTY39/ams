@@ -26,7 +26,7 @@ def page1(
         fg=FOREGROUND_COLOUR,
         font=("boulder", 32),
     )
-    heading.place(x=280, y=25)
+    heading.place(x=310, y=25)
 
     flat_number_label = tk.Label(
         buy_flat_frame,
@@ -48,7 +48,7 @@ def page1(
             buy_flat_frame, table_one, table_two, flat_number_entry.get()
         ),
     )
-    submit_button.place(x=350, y=145)
+    submit_button.place(x=350, y=450)
 
     quit_button = tk.Button(
         buy_flat_frame,
@@ -71,14 +71,13 @@ def _page2(
         )
         return
 
-    flat = table_one[flat_number]
-
-    if flat.availability:
-        messagebox.showerror("Flat for sale", f"Flat no. {flat_number} is not owned")
-        return
-
     flat_info = table_one[flat_number]
     owner_info = table_two[flat_info.owner_name]
+    owned = flat_info.on_rent or (not flat_info.availability)
+
+    if not owned:
+        messagebox.showerror("Flat for sale", f"Flat no. {flat_number} is not owned")
+        return
 
     info_label = tk.Label(
         buy_flat_frame,
@@ -101,7 +100,7 @@ Tenant name: {flat_info.tenant_name}\t\tFlat's owned: {owner_info.flats_owned}""
         relief="groove",
         command=lambda: sell_flat(buy_flat_frame, table_one, table_two, flat_number),
     )
-    delete_button.place(x=225, y=450)
+    delete_button.place(x=300, y=450)
 
 
 def sell_flat(
@@ -111,33 +110,26 @@ def sell_flat(
     flat_number: str,
 ):
     if not messagebox.askyesno(
-        "Deleting flat", "This is an irreversible change, are you sure?"
+        "Selling flat", "This is an irreversible change, are you sure?"
     ):
         return
 
-    owner_name = table_one[flat_number].owner_name
+    flat_info = table_one[flat_number]
+    owner_name = flat_info.owner_name
+    table_two[owner_name].flats_owned.remove(flat_number)
 
-    if table_one[flat_number].on_rent:
-        table_one[flat_number].tenant_name = None
-    else:
-        table_one[flat_number].owner_name = None
+    if len(table_two[owner_name].flats_owned) == 0:
+        del table_two[owner_name]
 
-        table_two[owner_name].flats_owned.remove(flat_number)
+        messagebox.showinfo(
+            "Owner name removed successfully",
+            f"Owner name {owner_name} has been removed due to them owning 0 flats",
+        )
 
-        if len(table_two[owner_name].flats_owned) == 0:
-            del table_two[owner_name]
-
-            messagebox.showinfo(
-                "Owner name removed successfully",
-                f"Owner name {owner_name} has been removed due to them owning 0 flats",
-            )
-
-    table_one[flat_number].availability = True
+    table_one[flat_number] = FlatInfo(flat_info.availability, False, None, None)
 
     database.write_tables(table_one, table_two)
-
     messagebox.showinfo(
         "Flat no. sold successfully", f"Flat no. {flat_number} has been sold"
     )
-
     functions.delete_frame(buy_flat_frame)

@@ -80,84 +80,57 @@ def _page2(
         )
         return
 
-    if flat.on_rent:
-        tenant_name_label = tk.Label(
+    owner_name_label = tk.Label(
+        buy_flat_frame,
+        text="Owner's Name",
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
+        font=("monospace", 18),
+    )
+    owner_name_label.place(x=30, y=150)
+
+    owner_name_entry = tk.Entry(buy_flat_frame, width=15)
+    owner_name_entry.place(x=250, y=155)
+
+    phone_number_label = tk.Label(
+        buy_flat_frame,
+        text="Phone no.",
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
+        font=("monospace", 18),
+    )
+    phone_number_label.place(x=425, y=150)
+
+    phone_number_entry = tk.Entry(buy_flat_frame, width=15)
+    phone_number_entry.place(x=600, y=155)
+
+    email_label = tk.Label(
+        buy_flat_frame,
+        text="Email",
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
+        font=("monospace", 18),
+    )
+    email_label.place(x=425, y=200)
+
+    email_entry = tk.Entry(buy_flat_frame, width=15)
+    email_entry.place(x=600, y=205)
+
+    buy_button = tk.Button(
+        buy_flat_frame,
+        text="Buy",
+        relief="groove",
+        command=lambda: add_owner_info(
             buy_flat_frame,
-            text="Tenant's Name",
-            bg=BACKGROUND_COLOUR,
-            fg=FOREGROUND_COLOUR,
-            font=("monospace", 18),
-        )
-        tenant_name_label.place(x=275, y=75)
-
-        tenant_name_entry = tk.Entry(buy_flat_frame, width=15)
-        tenant_name_entry.place(x=250, y=355)
-
-        delete_button = tk.Button(
-            buy_flat_frame,
-            text="Delete",
-            relief="groove",
-            command=lambda: add_tenant(
-                buy_flat_frame,
-                table_one,
-                table_two,
-                flat_number,
-                tenant_name_entry.get(),
-            ),
-        )
-        delete_button.place(x=225, y=450)
-    else:
-        owner_name_label = tk.Label(
-            buy_flat_frame,
-            text="Owner's Name",
-            bg=BACKGROUND_COLOUR,
-            fg=FOREGROUND_COLOUR,
-            font=("monospace", 18),
-        )
-        owner_name_label.place(x=30, y=150)
-
-        owner_name_entry = tk.Entry(buy_flat_frame, width=15)
-        owner_name_entry.place(x=250, y=155)
-
-        phone_number_label = tk.Label(
-            buy_flat_frame,
-            text="Phone no.",
-            bg=BACKGROUND_COLOUR,
-            fg=FOREGROUND_COLOUR,
-            font=("monospace", 18),
-        )
-        phone_number_label.place(x=425, y=150)
-
-        phone_number_entry = tk.Entry(buy_flat_frame, width=15)
-        phone_number_entry.place(x=600, y=155)
-
-        email_label = tk.Label(
-            buy_flat_frame,
-            text="Email",
-            bg=BACKGROUND_COLOUR,
-            fg=FOREGROUND_COLOUR,
-            font=("monospace", 18),
-        )
-        email_label.place(x=425, y=200)
-
-        email_entry = tk.Entry(buy_flat_frame, width=15)
-        email_entry.place(x=600, y=205)
-
-        delete_button = tk.Button(
-            buy_flat_frame,
-            text="Buy",
-            relief="groove",
-            command=lambda: add_owner_info(
-                buy_flat_frame,
-                table_one,
-                table_two,
-                flat_number,
-                owner_name_entry.get(),
-                phone_number_entry.get(),
-                email_entry.get(),
-            ),
-        )
-        delete_button.place(x=225, y=450)
+            table_one,
+            table_two,
+            flat_number,
+            owner_name_entry.get(),
+            phone_number_entry.get(),
+            email_entry.get(),
+        ),
+    )
+    buy_button.place(x=225, y=450)
 
 
 def add_tenant(

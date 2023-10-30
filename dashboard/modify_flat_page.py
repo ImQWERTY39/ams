@@ -23,7 +23,7 @@ def page1(root: tk.Frame, table_one: dict, table_two: dict):
         fg=FOREGROUND_COLOUR,
         font=("boulder", 32),
     )
-    heading.place(x=280, y=25)
+    heading.place(x=310, y=25)
 
     flat_number_label = tk.Label(
         modify_flat_frame,
@@ -49,7 +49,7 @@ def page1(root: tk.Frame, table_one: dict, table_two: dict):
             table_two,
         ),
     )
-    submit_button.place(x=350, y=145)
+    submit_button.place(x=350, y=450)
 
     quit_button = tk.Button(
         modify_flat_frame,
@@ -64,8 +64,8 @@ def page2(
     root: tk.Frame,
     modify_flat_frame: tk.Frame,
     flat_number: str,
-    table_two: dict,
     table_one: dict,
+    table_two: dict,
 ):
     if flat_number not in table_one:
         messagebox.showerror(
@@ -74,6 +74,11 @@ def page2(
         return
 
     functions.delete_frame(modify_flat_frame)
+
+    old_flat_info = table_one[flat_number]
+    old_owner_info = (
+        table_two[old_flat_info.owner_name] if old_flat_info.owner_name else None
+    )
 
     modify_flat_frame = tk.Frame(
         root,
@@ -85,7 +90,7 @@ def page2(
 
     heading = tk.Label(
         modify_flat_frame,
-        text="Change flat details",
+        text="Enter flat details",
         bg=BACKGROUND_COLOUR,
         fg=FOREGROUND_COLOUR,
         font=("boulder", 32),
@@ -125,7 +130,7 @@ def page2(
     )
     availability_checkbox.place(x=250, y=205)
 
-    if table_one[flat_number].availability:
+    if old_flat_info.availability:
         availability_checkbox.toggle()
 
     on_rent_label = tk.Label(
@@ -148,11 +153,8 @@ def page2(
     )
     on_rent_checkbox.place(x=250, y=255)
 
-    if table_one[flat_number].on_rent:
+    if old_flat_info.on_rent:
         on_rent_checkbox.toggle()
-
-    owner_name = table_one[flat_number].owner_name
-    tenant_name = table_one[flat_number].tenant_name
 
     owner_name_label = tk.Label(
         modify_flat_frame,
@@ -164,7 +166,9 @@ def page2(
     owner_name_label.place(x=25, y=300)
 
     owner_name_entry = tk.Entry(modify_flat_frame, width=15)
-    owner_name_entry.insert(0, owner_name if owner_name is not None else "")
+    owner_name_entry.insert(
+        0, old_flat_info.owner_name if old_flat_info.owner_name else ""
+    )
     owner_name_entry.place(x=250, y=305)
 
     tenant_name_label = tk.Label(
@@ -177,11 +181,10 @@ def page2(
     tenant_name_label.place(x=25, y=350)
 
     tenant_name_entry = tk.Entry(modify_flat_frame, width=15)
-    tenant_name_entry.insert(0, tenant_name if tenant_name is not None else "")
+    tenant_name_entry.insert(
+        0, old_flat_info.tenant_name if old_flat_info.tenant_name else ""
+    )
     tenant_name_entry.place(x=250, y=355)
-
-    if tenant_name is not None:
-        pass
 
     phone_number_label = tk.Label(
         modify_flat_frame,
@@ -193,7 +196,7 @@ def page2(
     phone_number_label.place(x=425, y=150)
 
     phone_number_entry = tk.Entry(modify_flat_frame, width=15)
-    phone_number_entry.insert(0, table_two[owner_name].phone_number)
+    phone_number_entry.insert(0, old_owner_info.phone_number if old_owner_info else "")
     phone_number_entry.place(x=600, y=155)
 
     email_label = tk.Label(
@@ -206,7 +209,7 @@ def page2(
     email_label.place(x=425, y=200)
 
     email_entry = tk.Entry(modify_flat_frame, width=15)
-    email_entry.insert(0, table_two[owner_name].email)
+    email_entry.insert(0, old_owner_info.email if old_owner_info else "")
     email_entry.place(x=600, y=205)
 
     quit_button = tk.Button(
@@ -221,17 +224,18 @@ def page2(
         modify_flat_frame,
         text="Submit",
         relief="groove",
-        command=lambda: submit_details(
+        command=lambda: update_details(
             modify_flat_frame,
             table_one,
             table_two,
             flat_number,
+            old_flat_info,
+            old_owner_info,
             flat_number_entry.get().strip(),
             availability_option.get(),
             on_rent_option.get(),
-            owner_name,
-            owner_name_entry.get().strip().upper(),
-            tenant_name_entry.get().strip().upper(),
+            owner_name_entry.get().strip(),
+            tenant_name_entry.get().strip(),
             phone_number_entry.get().strip(),
             email_entry.get().strip(),
         ),
@@ -239,55 +243,93 @@ def page2(
     submit_button.place(x=500, y=400)
 
 
-def submit_details(
+def update_details(
     modify_flat_frame: tk.Frame,
     table_one: dict,
     table_two: dict,
-    flat_number_old: str,
-    flat_number_new: str,
-    availability: bool,
-    on_rent: bool,
-    owner_name_old: str,
-    owner_name_new: str,
-    tenant_name: str,
-    phone_number: str,
-    email: str,
+    old_flat_number: str,
+    old_flat_info: FlatInfo,
+    old_owner_info: OwnerInfo,
+    new_flat_number: str,
+    new_availability: bool,
+    new_on_rent: bool,
+    new_owner_name: str,
+    new_tenant_name: str,
+    new_phone_number: str,
+    new_email: str,
 ):
-    if not functions.is_valid_phone_number(phone_number):
+    owned = new_on_rent or (not new_availability)
+    rented = new_on_rent and (not new_availability)
+
+    if new_flat_number == "":
+        messagebox.showerror("Invalid flat number", "Please enter a flat number")
+        return
+
+    new_flat_info = FlatInfo(
+        new_availability, new_on_rent, new_owner_name, new_tenant_name
+    )
+    new_owner_info = OwnerInfo(new_phone_number, new_email, [new_flat_number])
+
+    if new_flat_number == "":
+        messagebox.showerror("Invalid flat number", "Please enter a flat number")
+        return
+
+    if new_flat_number in table_one and new_flat_number != old_flat_number:
+        if not messagebox.askyesno(
+            "Flat number already exists",
+            f"Flat number already exists. Are you sure you editing the flat details of {new_flat_number}?",
+        ):
+            return
+
+    if new_owner_name == "" and owned:
+        messagebox.showerror(
+            "Invalid name",
+            "Owner name cannot be empty for an owned house",
+        )
+        return
+
+    if not functions.is_valid_phone_number(new_phone_number) and owned:
         messagebox.showerror(
             "Invalid phone number",
             "Phone number must contain 10 numeric character only",
         )
         return
 
-    if not functions.is_valid_email(email):
+    if not functions.is_valid_email(new_email) and owned:
         messagebox.showerror(
             "Invalid email address",
             "The email address must contain a username and domain separated with '@'",
         )
         return
 
-    if flat_number_new == "":
-        messagebox.showerror("Invalid flat number", "Please enter a flat number")
-        return
+    if new_tenant_name == "" and rented:
+        messagebox.showerror(
+            "Invalid name",
+            "Tenant name cannot be empty for a rented house that is not available",
+        )
 
-    flat_info = FlatInfo(availability, on_rent, owner_name_new, tenant_name)
-    owner_info = OwnerInfo(phone_number, email, table_two[owner_name_old].flats_owned)
+    del table_one[old_flat_number]
+    if old_flat_info.owner_name:
+        del table_two[old_flat_info.owner_name]
 
-    if flat_number_old != flat_number_new:
-        del table_one[flat_number_old]
-        owner_info.flats_owned.remove(flat_number_old)
-        owner_info.flats_owned.append(flat_number_new)
+    if old_owner_info and owned:
+        if old_flat_number == new_flat_number:
+            new_owner_info.flats_owned = old_owner_info.flats_owned
+        else:
+            other_flats = old_owner_info.flats_owned
+            other_flats.remove(old_flat_number)
+            new_owner_info.flats_owned.extend(other_flats)
 
-    if owner_name_old != owner_name_new:
-        del table_two[owner_name_old]
+    new_owner_info.flats_owned = list(set(new_owner_info.flats_owned))
 
-    table_one[flat_number_new] = flat_info
-    table_two[owner_name_new] = owner_info
+    table_one[new_flat_number] = new_flat_info
+
+    if owned:
+        table_two[new_owner_name.upper()] = new_owner_info
 
     database.write_tables(table_one, table_two)
     messagebox.showinfo(
-        "Flat added successfully",
-        f"Flat no. {flat_number_new} has been modified successfully",
+        "Flat modified successfully",
+        f"Flat no. {new_flat_number} has been modified successfully",
     )
     functions.delete_frame(modify_flat_frame)

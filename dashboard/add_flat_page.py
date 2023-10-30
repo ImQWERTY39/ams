@@ -148,9 +148,9 @@ def add_flat_page(
             flat_number_entry.get().strip(),
             availability_option.get(),
             on_rent_option.get(),
-            owner_name_entry.get(),
-            tenant_name_entry.get(),
-            phone_number_entry.get(),
+            owner_name_entry.get().strip(),
+            tenant_name_entry.get().strip(),
+            phone_number_entry.get().strip(),
             email_entry.get().strip(),
         ),
     )
@@ -170,6 +170,25 @@ def submit_details(
     email: str,
 ):
     owned = on_rent or (not availability)
+    rented = on_rent and (not availability)
+
+    if flat_number == "":
+        messagebox.showerror("Invalid flat number", "Please enter a flat number")
+        return
+
+    if flat_number in table_one:
+        messagebox.showerror(
+            "Flat number already exists",
+            "Flat number already exists. If you want to edit the information, go to 'Modify Flat Information' menu",
+        )
+        return
+
+    if owner_name == "" and owned:
+        messagebox.showerror(
+            "Invalid name",
+            "Owner name cannot be empty for an owned house",
+        )
+        return
 
     if not functions.is_valid_phone_number(phone_number) and owned:
         messagebox.showerror(
@@ -185,23 +204,19 @@ def submit_details(
         )
         return
 
-    if flat_number == "":
-        messagebox.showerror("Invalid flat number", "Please enter a flat number")
-        return
-
-    if flat_number in table_one:
+    if tenant_name == "" and rented:
         messagebox.showerror(
-            "Flat number already exists",
-            "Flat number already exists. If you want to edit the information, go to 'Modify Flat Information' menu",
+            "Invalid name",
+            "Tenant name cannot be empty for a rented house that is not available",
         )
-        return
 
     table_one[flat_number] = FlatInfo(availability, on_rent, owner_name, tenant_name)
+    owner_name = table_one[flat_number].owner_name
 
     if owner_name in table_two:
-        table_two[owner_name.upper()].flats_owned.append(flat_number)
+        table_two[owner_name].flats_owned.append(flat_number)
     elif owner_name:
-        table_two[owner_name.upper()] = OwnerInfo(phone_number, email, [flat_number])
+        table_two[owner_name] = OwnerInfo(phone_number, email, [flat_number])
 
     database.write_tables(table_one, table_two)
     messagebox.showinfo(

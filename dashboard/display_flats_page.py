@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 from constants import *
 import functions
-from classes import FlatInfo
 
 
 def display_flats(root: tk.Frame, table_one: dict):
@@ -23,8 +22,12 @@ def display_flats(root: tk.Frame, table_one: dict):
     )
     heading.place(x=280, y=25)
 
-    columns = ("col1", "col2", "col3", "col4", "col5")
-    tree = ttk.Treeview(display_flat_frame, columns=columns, show="headings", height=15)
+    tree = ttk.Treeview(
+        display_flat_frame,
+        columns=("col1", "col2", "col3", "col4", "col5"),
+        show="headings",
+        height=15,
+    )
 
     tree.column("col1", anchor=tk.CENTER, width=SCREEN_WIDTH // 5)
     tree.heading("col1", text="Flat No.")
