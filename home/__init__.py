@@ -36,13 +36,13 @@ def home_page(root: tk.Tk):
         width=10,
         height=1,
         font=("", 12),
-        command=lambda: goto_login_screen(root, home_page_frame),
+        command=lambda: _goto_login_screen(root, home_page_frame),
     )
-    login_button.bind("<Return>", lambda _: goto_login_screen(root, home_page_frame))
+    login_button.bind("<Return>", lambda _: login_button.invoke())
     login_button.place(x=600, y=300)
 
 
-def goto_login_screen(root: tk.Tk, home_page_frame: tk.Frame):
+def _goto_login_screen(root: tk.Tk, home_page_frame: tk.Frame):
     functions.delete_frame(home_page_frame)
     _login_page(root)
 
@@ -98,10 +98,11 @@ def _login_page(root: tk.Tk):
         width=10,
         height=1,
         font=("", 12),
-        command=lambda: check_username_and_password(
+        command=lambda: _check_username_and_password(
             username_entry, password_entry, login_frame, root
         ),
     )
+    login_button.bind("<Return>", lambda _: login_button.invoke())
     login_button.place(x=325, y=350)
 
     quit_button = tk.Button(
@@ -113,12 +114,13 @@ def _login_page(root: tk.Tk):
         font=("", 12),
         command=root.destroy,
     )
+    quit_button.bind("<Return>", lambda _: quit_button.invoke())
     quit_button.place(x=325, y=390)
 
     root.mainloop()
 
 
-def check_username_and_password(
+def _check_username_and_password(
     username_entry: tk.Entry,
     password_entry: tk.Entry,
     login_frame: tk.Frame,

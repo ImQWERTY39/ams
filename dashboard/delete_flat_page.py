@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox
+
 from constants import *
 import functions
 from functions import database
-from classes import FlatInfo, OwnerInfo
 
 
 def delete_flat_page(root: tk.Frame, table_one: dict, table_two: dict):
@@ -40,10 +40,11 @@ def delete_flat_page(root: tk.Frame, table_one: dict, table_two: dict):
         delete_flat_frame,
         text="Submit",
         relief="groove",
-        command=lambda: show_flat_and_owner_details(
+        command=lambda: _show_flat_and_owner_details(
             flat_number_entry.get().strip(), table_one, table_two, delete_flat_frame
         ),
     )
+    submit_button.bind("<Return>", lambda _: submit_button.invoke())
     submit_button.place(x=350, y=145)
 
     quit_button = tk.Button(
@@ -52,10 +53,11 @@ def delete_flat_page(root: tk.Frame, table_one: dict, table_two: dict):
         relief="groove",
         command=lambda: functions.delete_frame(delete_flat_frame),
     )
+    quit_button.bind("<Return>", lambda _: quit_button.invoke())
     quit_button.place(x=425, y=450)
 
 
-def show_flat_and_owner_details(
+def _show_flat_and_owner_details(
     flat_number: str,
     table_one: dict,
     table_two: dict,
@@ -68,6 +70,23 @@ def show_flat_and_owner_details(
         return
 
     flat_info = table_one[flat_number]
+    owner_info = table_two[flat_info.owner_name] if flat_info.owner_name else None
+
+    details = tk.Label(
+        delete_flat_frame,
+        text=f"""\
+Flat Number: {flat_number}\t\tOwner Name: {flat_info.owner_name}
+Availability: {flat_info.availability}\t\tPhone Number: {owner_info.phone_number if owner_info else None}
+On Rent: {flat_info.on_rent}\t\tEmail: {owner_info.email if owner_info else None}
+Tenant Name: {flat_info.tenant_name}""",
+        bg=BACKGROUND_COLOUR,
+        fg=FOREGROUND_COLOUR,
+        font=("monospace", 18),
+        anchor="w",
+        justify="left",
+    )
+
+    details.place(x=50, y=250)
 
     delete_button = tk.Button(
         delete_flat_frame,
@@ -77,6 +96,7 @@ def show_flat_and_owner_details(
             flat_number, table_one, table_two, delete_flat_frame
         ),
     )
+    delete_button.bind("<Return>", lambda _: delete_button.invoke())
     delete_button.place(x=225, y=450)
 
 

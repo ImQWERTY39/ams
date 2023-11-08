@@ -49,6 +49,7 @@ def page1(
             buy_flat_frame, table_one, table_two, flat_number_entry.get()
         ),
     )
+    submit_button.bind("<Return>", lambda _:submit_button.invoke())
     submit_button.place(x=350, y=450)
 
     quit_button = tk.Button(
@@ -57,6 +58,7 @@ def page1(
         relief="groove",
         command=lambda: functions.delete_frame(buy_flat_frame),
     )
+    quit_button.bind("<Return>", lambda _:quit_button.invoke())
     quit_button.place(x=425, y=450)
 
 
@@ -130,26 +132,8 @@ def _page2(
             email_entry.get(),
         ),
     )
+    buy_button.bind("<Return>", lambda _:buy_button.invoke())
     buy_button.place(x=225, y=450)
-
-
-def add_tenant(
-    buy_flat_frame: tk.Tk,
-    table_one: dict,
-    table_two: dict,
-    flat_number: str,
-    tenant_name: str,
-):
-    if not tenant_name:
-        messagebox.showerror("No Name", "Enter a name")
-        return
-
-    table_one[flat_number].availability = False
-    table_one[flat_number].tenant_name = tenant_name
-
-    messagebox.showinfo("Flat on rent", f"Flat {flat_number} is now on rent")
-    functions.delete_frame(buy_flat_frame)
-    database.write_tables(table_one, table_two)
 
 
 def add_owner_info(

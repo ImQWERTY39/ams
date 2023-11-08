@@ -41,7 +41,7 @@ def page1(root: tk.Frame, table_one: dict, table_two: dict):
         modify_flat_frame,
         text="Submit",
         relief="groove",
-        command=lambda: page2(
+        command=lambda: _page2(
             root,
             modify_flat_frame,
             flat_number_entry.get().strip(),
@@ -49,6 +49,7 @@ def page1(root: tk.Frame, table_one: dict, table_two: dict):
             table_two,
         ),
     )
+    submit_button.bind("<Return>", lambda _: submit_button.invoke())
     submit_button.place(x=350, y=450)
 
     quit_button = tk.Button(
@@ -57,10 +58,11 @@ def page1(root: tk.Frame, table_one: dict, table_two: dict):
         relief="groove",
         command=lambda: functions.delete_frame(modify_flat_frame),
     )
+    quit_button.bind("<Return>", lambda _: quit_button.invoke())
     quit_button.place(x=425, y=450)
 
 
-def page2(
+def _page2(
     root: tk.Frame,
     modify_flat_frame: tk.Frame,
     flat_number: str,
@@ -218,13 +220,14 @@ def page2(
         relief="groove",
         command=lambda: functions.delete_frame(modify_flat_frame),
     )
+    quit_button.bind("<Return>", lambda _: quit_button.invoke())
     quit_button.place(x=400, y=400)
 
     submit_button = tk.Button(
         modify_flat_frame,
         text="Submit",
         relief="groove",
-        command=lambda: update_details(
+        command=lambda: _update_details(
             modify_flat_frame,
             table_one,
             table_two,
@@ -240,10 +243,11 @@ def page2(
             email_entry.get().strip(),
         ),
     )
+    submit_button.bind("<Return>", lambda _: submit_button.invoke())
     submit_button.place(x=500, y=400)
 
 
-def update_details(
+def _update_details(
     modify_flat_frame: tk.Frame,
     table_one: dict,
     table_two: dict,

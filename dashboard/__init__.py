@@ -42,6 +42,7 @@ def page(root: tk.Tk):
             dashboard_frame, table_one, table_two
         ),
     )
+    add_flat_button.bind("<Return>", lambda _: add_flat_button.invoke())
     add_flat_button.place(x=150, y=150)
 
     modify_flat_info_button = tk.Button(
@@ -51,6 +52,7 @@ def page(root: tk.Tk):
         width=20,
         command=lambda: modify_flat_page.page1(dashboard_frame, table_one, table_two),
     )
+    modify_flat_info_button.bind("<Return>", lambda _: modify_flat_info_button.invoke())
     modify_flat_info_button.place(x=150, y=200)
 
     display_flat_button = tk.Button(
@@ -60,6 +62,7 @@ def page(root: tk.Tk):
         width=20,
         command=lambda: display_flats_page.display_flats(dashboard_frame, table_one),
     )
+    display_flat_button.bind("<Return>", lambda _: display_flat_button.invoke())
     display_flat_button.place(x=150, y=250)
 
     delete_flat_button = tk.Button(
@@ -71,6 +74,7 @@ def page(root: tk.Tk):
             dashboard_frame, table_one, table_two
         ),
     )
+    delete_flat_button.bind("<Return>", lambda _: delete_flat_button.invoke())
     delete_flat_button.place(x=150, y=300)
 
     buy_flat_button = tk.Button(
@@ -80,6 +84,7 @@ def page(root: tk.Tk):
         width=20,
         command=lambda: buy_flat_page.page1(dashboard_frame, table_one, table_two),
     )
+    buy_flat_button.bind("<Return>", lambda _: buy_flat_button.invoke())
     buy_flat_button.place(x=450, y=150)
 
     sell_flat_button = tk.Button(
@@ -89,6 +94,7 @@ def page(root: tk.Tk):
         width=20,
         command=lambda: sell_flat_page.page1(dashboard_frame, table_one, table_two),
     )
+    sell_flat_button.bind("<Return>", lambda _: sell_flat_button.invoke())
     sell_flat_button.place(x=450, y=200)
 
     quit_button = tk.Button(
@@ -98,4 +104,5 @@ def page(root: tk.Tk):
         width=20,
         command=root.destroy,
     )
+    quit_button.bind("<Return>", lambda _: quit_button.invoke())
     quit_button.place(x=300, y=400)

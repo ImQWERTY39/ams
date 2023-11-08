@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
 
+from classes import *
 from constants import *
 import functions
 from functions import database
-from classes import FlatInfo, OwnerInfo
 
 
 def add_flat_page(
@@ -135,6 +135,7 @@ def add_flat_page(
         relief="groove",
         command=lambda: functions.delete_frame(add_flat_frame),
     )
+    quit_button.bind("<Return>", lambda _: quit_button.invoke())
     quit_button.place(x=400, y=400)
 
     submit_button = tk.Button(
@@ -154,6 +155,7 @@ def add_flat_page(
             email_entry.get().strip(),
         ),
     )
+    submit_button.bind("<Return>", lambda _: submit_button.invoke())
     submit_button.place(x=500, y=400)
 
 

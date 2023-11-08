@@ -1,52 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+
 from constants import *
-from functions import delete_frame
-
-
-def _get_all_flats(
-    table_one: dict,
-    check_owned_flats: bool = False,
-    check_rented_flats: bool = False,
-    check_all_available_flats: bool = False,
-    check_non_rented_available_flats: bool = False,
-    check_rented_available_flats: bool = False,
-) -> list:
-    flats_info = list()
-
-    for flat_number, flat_info in table_one.items():
-        owner_name = flat_info.owner_name
-        tenant_name = flat_info.tenant_name
-
-        owned = flat_info.on_rent or (not flat_info.availability)
-        rented = flat_info.on_rent and (not flat_info.availability)
-
-        if (
-            (check_owned_flats and not owned)
-            or (check_rented_flats and not rented)
-            or (check_all_available_flats and not flat_info.availability)
-            or (
-                check_non_rented_available_flats
-                and (flat_info.on_rent or not flat_info.availability)
-            )
-            or (
-                check_rented_available_flats
-                and not (flat_info.on_rent and flat_info.availability)
-            )
-        ):
-            continue
-
-        flats_info.append(
-            (
-                flat_number,
-                flat_info.availability,
-                flat_info.on_rent,
-                owner_name if owner_name is not None else "NONE",
-                tenant_name if tenant_name is not None else "NONE",
-            )
-        )
-
-    return flats_info
+import functions
 
 
 def display_flats(root: tk.Frame, table_one: dict, conditions: list = None):
@@ -105,15 +61,62 @@ def display_flats(root: tk.Frame, table_one: dict, conditions: list = None):
         relief="groove",
         command=lambda: _get_filters(display_flat_frame, root, table_one),
     )
+    filter_button.bind("<Return>", lambda _: filter_button.invoke())
     filter_button.place(x=300, y=450)
 
     quit_button = tk.Button(
         display_flat_frame,
         text="Quit",
         relief="groove",
-        command=lambda: delete_frame(display_flat_frame),
+        command=lambda: functions.delete_frame(display_flat_frame),
     )
+    quit_button.bind("<Return>", lambda _: quit_button.invoke())
     quit_button.place(x=370, y=450)
+
+
+def _get_all_flats(
+    table_one: dict,
+    check_owned_flats: bool = False,
+    check_rented_flats: bool = False,
+    check_all_available_flats: bool = False,
+    check_non_rented_available_flats: bool = False,
+    check_rented_available_flats: bool = False,
+) -> list:
+    flats_info = list()
+
+    for flat_number, flat_info in table_one.items():
+        owner_name = flat_info.owner_name
+        tenant_name = flat_info.tenant_name
+
+        owned = flat_info.on_rent or (not flat_info.availability)
+        rented = flat_info.on_rent and (not flat_info.availability)
+
+        if (
+            (check_owned_flats and not owned)
+            or (check_rented_flats and not rented)
+            or (check_all_available_flats and not flat_info.availability)
+            or (
+                check_non_rented_available_flats
+                and (flat_info.on_rent or not flat_info.availability)
+            )
+            or (
+                check_rented_available_flats
+                and not (flat_info.on_rent and flat_info.availability)
+            )
+        ):
+            continue
+
+        flats_info.append(
+            (
+                flat_number,
+                flat_info.availability,
+                flat_info.on_rent,
+                owner_name if owner_name is not None else "NONE",
+                tenant_name if tenant_name is not None else "NONE",
+            )
+        )
+
+    return flats_info
 
 
 def _get_filters(display_flat_frame: tk.Frame, root: tk.Frame, table_one: dict):
@@ -239,6 +242,7 @@ def _get_filters(display_flat_frame: tk.Frame, root: tk.Frame, table_one: dict):
             check_rented_available_flats.get(),
         ),
     )
+    refresh_button.bind("<Return>", lambda _: refresh_button.invoke())
     refresh_button.place(x=400, y=100)
 
 
@@ -253,8 +257,8 @@ def _refresh_search(
     check_non_rented_available_flats: bool,
     check_rented_available_flats: bool,
 ):
-    delete_frame(filters_frame)
-    delete_frame(display_flat_frame)
+    functions.delete_frame(filters_frame)
+    functions.delete_frame(display_flat_frame)
 
     display_flats(
         root,

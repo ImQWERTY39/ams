@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
-from classes import *
+
 from constants import *
+from classes import *
 import functions
 from functions import database
 
@@ -48,6 +49,7 @@ def page1(
             buy_flat_frame, table_one, table_two, flat_number_entry.get()
         ),
     )
+    submit_button.bind("<Return>", lambda _: submit_button.invoke())
     submit_button.place(x=350, y=450)
 
     quit_button = tk.Button(
@@ -56,6 +58,7 @@ def page1(
         relief="groove",
         command=lambda: functions.delete_frame(buy_flat_frame),
     )
+    quit_button.bind("<Return>", lambda _: quit_button.invoke())
     quit_button.place(x=425, y=450)
 
 
@@ -98,12 +101,13 @@ Tenant name: {flat_info.tenant_name}\t\tFlat's owned: {owner_info.flats_owned}""
         buy_flat_frame,
         text="Sell",
         relief="groove",
-        command=lambda: sell_flat(buy_flat_frame, table_one, table_two, flat_number),
+        command=lambda: _sell_flat(buy_flat_frame, table_one, table_two, flat_number),
     )
+    delete_button.bind("<Return>", lambda _: delete_button.invoke())
     delete_button.place(x=300, y=450)
 
 
-def sell_flat(
+def _sell_flat(
     buy_flat_frame: tk.Frame,
     table_one: dict,
     table_two: dict,
