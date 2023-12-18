@@ -49,7 +49,7 @@ def page1(
             buy_flat_frame, table_one, table_two, flat_number_entry.get()
         ),
     )
-    submit_button.bind("<Return>", lambda _:submit_button.invoke())
+    submit_button.bind("<Return>", lambda _: submit_button.invoke())
     submit_button.place(x=350, y=450)
 
     quit_button = tk.Button(
@@ -58,7 +58,7 @@ def page1(
         relief="groove",
         command=lambda: functions.delete_frame(buy_flat_frame),
     )
-    quit_button.bind("<Return>", lambda _:quit_button.invoke())
+    quit_button.bind("<Return>", lambda _: quit_button.invoke())
     quit_button.place(x=425, y=450)
 
 
@@ -122,7 +122,7 @@ def _page2(
         buy_flat_frame,
         text="Buy",
         relief="groove",
-        command=lambda: add_owner_info(
+        command=lambda: buy_flat(
             buy_flat_frame,
             table_one,
             table_two,
@@ -132,11 +132,11 @@ def _page2(
             email_entry.get(),
         ),
     )
-    buy_button.bind("<Return>", lambda _:buy_button.invoke())
+    buy_button.bind("<Return>", lambda _: buy_button.invoke())
     buy_button.place(x=225, y=450)
 
 
-def add_owner_info(
+def buy_flat(
     buy_flat_frame: tk.Tk,
     table_one: dict,
     table_two: dict,
