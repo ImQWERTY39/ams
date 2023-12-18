@@ -30,18 +30,18 @@ def load_tables() -> tuple:
         with open(TABLE_TWO_FILE_PATH, "r") as fr:
             table_two = json.loads(fr.read())
 
-    return (flat_info_as_class_value(table_one), owner_info_as_class_value(table_two))
+    return (_flat_info_as_class_value(table_one), _owner_info_as_class_value(table_two))
 
 
 def write_tables(table_one: dict, table_two: dict):
     with open(TABLE_ONE_FILE_PATH, "w") as fw:
-        fw.write(json.dumps(as_dict_value(table_one), indent=4))
+        fw.write(json.dumps(_as_dict_value(table_one), indent=4))
 
     with open(TABLE_TWO_FILE_PATH, "w") as fw:
-        fw.write(json.dumps(as_dict_value(table_two), indent=4))
+        fw.write(json.dumps(_as_dict_value(table_two), indent=4))
 
 
-def as_dict_value(table: dict) -> dict:
+def _as_dict_value(table: dict) -> dict:
     dict_copy = {}
 
     for i in table:
@@ -50,7 +50,7 @@ def as_dict_value(table: dict) -> dict:
     return dict_copy
 
 
-def flat_info_as_class_value(table: dict) -> dict:
+def _flat_info_as_class_value(table: dict) -> dict:
     dict_copy = {}
 
     for i in table:
@@ -59,7 +59,7 @@ def flat_info_as_class_value(table: dict) -> dict:
     return dict_copy
 
 
-def owner_info_as_class_value(table: dict) -> dict:
+def _owner_info_as_class_value(table: dict) -> dict:
     dict_copy = {}
 
     for i in table:

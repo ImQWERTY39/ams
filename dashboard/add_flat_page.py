@@ -142,7 +142,7 @@ def add_flat_page(
         add_flat_frame,
         text="Submit",
         relief="groove",
-        command=lambda: submit_details(
+        command=lambda: _submit_details(
             add_flat_frame,
             table_one,
             table_two,
@@ -159,7 +159,7 @@ def add_flat_page(
     submit_button.place(x=500, y=400)
 
 
-def submit_details(
+def _submit_details(
     add_flat_frame: tk.Frame,
     table_one: dict,
     table_two: dict,

@@ -122,7 +122,7 @@ def _page2(
         buy_flat_frame,
         text="Buy",
         relief="groove",
-        command=lambda: buy_flat(
+        command=lambda: _buy_flat(
             buy_flat_frame,
             table_one,
             table_two,
@@ -136,7 +136,7 @@ def _page2(
     buy_button.place(x=225, y=450)
 
 
-def buy_flat(
+def _buy_flat(
     buy_flat_frame: tk.Tk,
     table_one: dict,
     table_two: dict,

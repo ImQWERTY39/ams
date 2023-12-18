@@ -92,7 +92,7 @@ Tenant Name: {flat_info.tenant_name}""",
         delete_flat_frame,
         text="Delete",
         relief="groove",
-        command=lambda: delete_flat(
+        command=lambda: _delete_flat(
             flat_number, table_one, table_two, delete_flat_frame
         ),
     )
@@ -100,7 +100,7 @@ Tenant Name: {flat_info.tenant_name}""",
     delete_button.place(x=225, y=450)
 
 
-def delete_flat(
+def _delete_flat(
     flat_number: str,
     table_one: dict,
     table_two: dict,

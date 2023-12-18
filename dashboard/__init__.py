@@ -114,12 +114,12 @@ def page(root: tk.Tk):
         text="Log Out",
         relief="groove",
         width=20,
-        command=lambda: logout(root, dashboard_frame, table_one, table_two),
+        command=lambda: _logout(root, dashboard_frame, table_one, table_two),
     )
     logout_button.bind("<Return>", lambda _: logout_button.invoke())
     logout_button.place(x=400, y=400)
 
 
-def logout(root: tk.Tk, dashboard_frame: tk.Frame, table_one: dict, table_two: dict):
+def _logout(root: tk.Tk, dashboard_frame: tk.Frame, table_one: dict, table_two: dict):
     functions.delete_frame(dashboard_frame)
     home.home_page(root)
