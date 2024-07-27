@@ -8,13 +8,13 @@ def page(root: tk.Tk):
     owner_name = tools.create_entry(frame, 220, 280)
     
     tools.create_button(
-        frame, text="Submit", 
+        frame, text="Submit", width=15, height=2,
         command=lambda: check(root, frame, owner_name.get().strip())
-    ).place(x=670, y=525)
+    ).place(x=630, y=520)
     tools.create_button(
-        frame, text="Quit", 
+        frame, text="Quit", width=15, height=2,
         command=lambda: tools.switch_frame(root, frame, pages.dashboard.page)
-    ).place(x=525, y=525)
+    ).place(x=480, y=520)
 
 def check(root, frame, owner_name):
     owner = database.get_owner(owner_name)
@@ -39,16 +39,17 @@ def edit_information(root, owner):
     
     tools.create_button(
         frame, text="Submit", 
+        width=15, height=2,
         command=lambda: update(
             root, frame, 
             (owner_name.get().strip(), phno.get().strip(), email.get().strip()), 
             owner
         )
-    ).place(x=670, y=525)
+    ).place(x=630, y=520)
     tools.create_button(
-        frame, text="Quit", 
+        frame, text="Quit", width=15, height=2,
         command=lambda: tools.switch_frame(root, frame, pages.dashboard.page)
-    ).place(x=525, y=525)
+    ).place(x=480, y=520)
 
 def update(root, frame, new_owner_info, old_owner_info):
     success = database.update_owner(old_owner_info, new_owner_info)

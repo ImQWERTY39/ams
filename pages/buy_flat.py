@@ -8,13 +8,14 @@ def page(root: tk.Tk):
     flat_number = tools.create_entry(frame, 210, 280)
     
     tools.create_button(
-        frame, text="Submit", command=lambda: own_flat(root, frame, flat_number.get())
-    ).place(x=670, y=525)
+        frame, text="Submit", width=15, height=2,
+        command=lambda: own_flat(root, frame, flat_number.get())
+    ).place(x=630, y=520)
     tools.create_button(
-        frame, text="Quit", 
+        frame, text="Quit", width=15, height=2,
         command=lambda: tools.switch_frame(root, frame, pages.dashboard.page)
-    ).place(x=525, y=525)
-
+    ).place(x=480, y=520)
+    
 def own_flat(root, frame, flat_number):
     flat = database.get_flat(flat_number)
     
@@ -30,7 +31,7 @@ def own_flat(root, frame, flat_number):
     else: tools.switch_frame(root, frame, for_buy, flat)
 
 def rent_out(root, flat):
-    frame = tk.Frame(root, width=800, height=600, bg="#0000ff")
+    frame = tk.Frame(root, width=800, height=600)
     frame.place(x=0, y=0)
     
     tools.insert_bgimage(frame, "./assets/buy_sell_rented.png")
@@ -38,13 +39,14 @@ def rent_out(root, flat):
     tenant_name = tools.create_entry(frame, 220, 330)
     
     tools.create_button(
-        frame, text="Submit", 
+        frame, text="Submit", width=15, height=2, 
         command=lambda: rent(root, frame, flat[0], tenant_name.get())
-    ).place(x=670, y=525)
+    ).place(x=630, y=520)
+
     tools.create_button(
-        frame, text="Quit", 
+        frame, text="Quit", width=15, height=2,
         command=lambda: tools.switch_frame(root, frame, pages.dashboard.page)
-    ).place(x=525, y=525)
+    ).place(x=480, y=520)
 
 def for_buy(root, flat):
     frame = tk.Frame(root, width=800, height=600)
@@ -57,13 +59,14 @@ def for_buy(root, flat):
     email = tools.create_entry(frame, 220, 440)
     
     tools.create_button(
-        frame, text="Submit", 
+        frame, text="Submit", width=15, height=2, 
         command=lambda: buy(root, frame, flat[0], owner_name.get(), phno.get(), email.get())
-    ).place(x=670, y=525)
+    ).place(x=630, y=520)
+
     tools.create_button(
-        frame, text="Quit", 
+        frame, text="Quit", width=15, height=2,
         command=lambda: tools.switch_frame(root, frame, pages.dashboard.page)
-    ).place(x=525, y=525)
+    ).place(x=480, y=520)
 
 def rent(root, frame, flat_number, tenant_name):
     if database.rent_out_flat(flat_number, tenant_name) == 1: 

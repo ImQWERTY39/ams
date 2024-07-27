@@ -4,18 +4,20 @@ def page(root: tk.Tk):
     frame = tk.Frame(root, width=800, height=600)
     frame.place(x=0, y=0)
     
-    tools.insert_bgimage(frame, "./assets/delete.png")
+    tools.insert_bgimage(frame, "./assets/buy_sell.png")
     flat_number = tools.create_entry(frame, 210, 280)
     
     tools.create_button(
         frame, text="Submit", 
+        width=15, height=2,
         command=lambda: check_delete(root, frame, flat_number.get())
-    ).place(x=670, y=525)
+    ).place(x=630, y=520)
     tools.create_button(
         frame, text="Quit", 
+        width=15, height=2,
         command=lambda: tools.switch_frame(root, frame, pages.dashboard.page)
-    ).place(x=525, y=525)
-
+    ).place(x=480, y=520)
+    
 def check_delete(root, frame, flat_number):
     flat = database.get_flat(flat_number)
     if flat is None: 
@@ -29,20 +31,22 @@ def delete(root, flat):
     frame.place(x=0, y=0)
     
     tools.insert_bgimage(frame, "./assets/delete.png")
-    tk.Label(frame, text=f"{flat[0]}").place(x=250, y=280)
-    tk.Label(frame, text=f"{bool(flat[1])}").place(x=250, y=340)
-    tk.Label(frame, text=f"{bool(flat[2])}").place(x=250, y=405)
-    tk.Label(frame, text=f"{flat[3]}").place(x=550, y=340)
-    tk.Label(frame, text=f"{flat[4]}").place(x=550, y=405)
+    tk.Label(frame, bg="white", text=f"{flat[0]}").place(x=250, y=280)
+    tk.Label(frame, bg="white", text=f"{bool(flat[1])}").place(x=250, y=340)
+    tk.Label(frame, bg="white", text=f"{bool(flat[2])}").place(x=250, y=405)
+    tk.Label(frame, bg="white", text=f"{flat[3]}").place(x=550, y=340)
+    tk.Label(frame, bg="white", text=f"{flat[4]}").place(x=550, y=405)
     
     tools.create_button(
         frame, text="Delete", 
+        width=15, height=2,
         command=lambda: perf_delete(root, frame, flat)
-    ).place(x=670, y=525)
+    ).place(x=630, y=520)
     tools.create_button(
         frame, text="Quit", 
+        width=15, height=2,
         command=lambda: tools.switch_frame(root, frame, pages.dashboard.page)
-    ).place(x=525, y=525)
+    ).place(x=480, y=520)
 
 def perf_delete(root, frame, flat):
     choice = tk.messagebox.askyesno(

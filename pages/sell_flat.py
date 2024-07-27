@@ -8,13 +8,13 @@ def page(root: tk.Tk):
     flat_number = tools.create_entry(frame, 210, 280)
     
     tools.create_button(
-        frame, text="Submit", 
+        frame, text="Submit", width=15, height=2, 
         command=lambda: switch(root, frame, flat_number.get())
-    ).place(x=670, y=525)
+    ).place(x=630, y=520)
     tools.create_button(
-        frame, text="Quit", 
+        frame, text="Quit", width=15, height=2, 
         command=lambda: tools.switch_frame(root, frame, pages.dashboard.page)
-    ).place(x=525, y=525)
+    ).place(x=480, y=520)
 
 def switch(root, frame, flat_number):
     flat = database.get_flat(flat_number)
@@ -35,20 +35,20 @@ def sell_flat(root, flat):
     else:
         owner = database.get_owner(flat[3])
         tools.insert_bgimage(frame, "./assets/buy_sell_owned.png")
-        tk.Label(frame, text=f"{owner[0]}", bg="white").place(x=220, y=330)
-        tk.Label(frame, text=f"{owner[1]}", bg="white").place(x=220, y=380)
+        tk.Label(frame, text=f"{owner[0]}", bg="white").place(x=220, y=333)
+        tk.Label(frame, text=f"{owner[1]}", bg="white").place(x=220, y=387)
         tk.Label(frame, text=f"{owner[2]}", bg="white").place(x=220, y=440)
         
-    tk.Label(frame, text=f"{flat[0]}", bg="white").place(x=250, y=280)
+    tk.Label(frame, text=f"{flat[0]}", bg="white").place(x=220, y=280)
     
     tools.create_button(
-        frame, text="Sell", 
+        frame, text="Sell", width=15, height=2, 
         command=lambda: sell(root, frame, flat, owner)
-    ).place(x=670, y=525)
+    ).place(x=630, y=520)
     tools.create_button(
-        frame, text="Quit", 
+        frame, text="Quit", width=15, height=2, 
         command=lambda: tools.switch_frame(root, frame, pages.dashboard.page)
-    ).place(x=525, y=525)
+    ).place(x=480, y=520)
 
 def sell(root, frame, flat, owner):
     choice = tk.messagebox.askyesno(

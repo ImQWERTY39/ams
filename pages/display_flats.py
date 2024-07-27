@@ -20,17 +20,18 @@ def page(root: tk.Tk):
     page_number_label.place(x=355, y=550)
 
     tools.create_button(
-        frame, text="<", 
+        frame, text="<", width=4, height=2,
         command=lambda: change_view(flats, display_frame, False, page_number_label)
-    ).place(x=50, y=350)
+    ).place(x=30, y=340)
     tools.create_button(
-        frame, text=">", 
+        frame, text=">", width=4, height=2,
         command=lambda: change_view(flats, display_frame, True, page_number_label)
-    ).place(x=720, y=350)
+    ).place(x=710, y=340)
     tools.create_button(
         frame, text="Quit", 
+        width=15, height=2,
         command=lambda: tools.switch_frame(root, frame, pages.dashboard.page)
-    ).place(x=675, y=530)
+    ).place(x=620, y=520)
 
 def fmt_flats(root, flats):
     ret = []

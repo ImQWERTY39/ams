@@ -132,6 +132,13 @@ def sell_flat(flat, owner):
     database.commit()
     return owner_deleted
 
+def modify_flat(flat, new_for_rent, new_tenant):
+    if not new_for_rent: new_tenant = None
+    elif new_tenant == "": return 1
+
+    cursor.execute("UPDATE flat_detail SET for_rent = %s, tenant_name = %s WHERE flat_number = %s", (new_for_rent, new_tenant, flat[0]))
+    database.commit()
+
 def get_flats_count():
     cursor.execute(f"SELECT COUNT(*) FROM flat_detail")
     return cursor.fetchall()[0][0]

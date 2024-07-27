@@ -7,21 +7,10 @@ def page(root: tk.Tk) -> None:
 
     tools.insert_bgimage(frame, "./assets/home_screen.png")
     tools.create_button(
-        frame, text="Login", width=13, height=2, 
-        bg="#98d3ce", activebackground="#80c0c0", border=0, 
+        frame, text="Login", width=13, height=2,
         command=lambda: tools.switch_frame(root, frame, login)
     ).place(x=335, y=352)
     
-    tools.create_button(
-        frame, text="Home", width=10, height=1, 
-        command=lambda: temp(root, frame, "home")
-    ).place(x=0, y=400)
-    
-    tools.create_button(
-        frame, text="School", width=10, height=1, 
-        command=lambda: temp(root, frame, "school")
-    ).place(x=400, y=0)
-
 def login(root: tk.Tk) -> None:
     frame = tk.Frame(root, width=800, height=600, bg="#00ff00")
     frame.place(x=0, y=0)
@@ -32,13 +21,11 @@ def login(root: tk.Tk) -> None:
     
     tools.create_button(
         frame, text="Submit", width=13, height=2, 
-        bg="#98d3ce", activebackground="#80c0c0", border=0,
         command=lambda: validate(root, username.get(), password.get(), frame)
     ).place(x=410, y=356)
     
     tools.create_button(
         frame, text="Exit", width=13, height=2, 
-        bg="#98d3ce", activebackground="#80c0c0", border=0,
         command=lambda: tools.switch_frame(root, frame, page)
     ).place(x=250, y=356)
 
@@ -48,10 +35,4 @@ def validate(root: tk.Tk, username: str, password: str, frame: tk.Frame) -> None
         return
 
     messagebox.showinfo("Login successful", f"Login successful ({username})")
-    tools.switch_frame(root, frame, pages.dashboard.page)
-
-def temp(root, frame, place):
-    if place == "home": database.init("admin", "password")
-    else: database.init("root", "123456")
-
     tools.switch_frame(root, frame, pages.dashboard.page)
