@@ -12,7 +12,7 @@ def page(root: tk.Tk) -> None:
     ).place(x=335, y=352)
     
 def login(root: tk.Tk) -> None:
-    frame = tk.Frame(root, width=800, height=600, bg="#00ff00")
+    frame = tk.Frame(root, width=800, height=600)
     frame.place(x=0, y=0)
 
     tools.insert_bgimage(frame, "./assets/login_screen.png")

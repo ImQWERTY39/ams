@@ -54,8 +54,5 @@ def edit_information(root, owner):
 def update(root, frame, new_owner_info, old_owner_info):
     success = database.update_owner(old_owner_info, new_owner_info)
     
-    if success == 1: 
-        tk.messagebox.showerror("Invalid Name", f"Name {new_owner_info[0]} already exists")
-    else:
-        tk.messagebox.showinfo("Updated information", "Information Updated successfully")
-        tools.switch_frame(root, frame, pages.dashboard.page)
+    tk.messagebox.showinfo("Updated information", "Information Updated successfully")
+    tools.switch_frame(root, frame, pages.dashboard.page)

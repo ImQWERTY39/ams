@@ -1,9 +1,7 @@
 import tkinter as tk, tools, database, pages.dashboard, math
 
-mino, maxo, total_pages, cur_page = 0, 0, 0, 1
-
 def page(root: tk.Tk):
-    global mino, maxo, total_pages
+    global mino, maxo, total_pages, cur_page
     
     frame = tk.Frame(root, width=800, height=600)
     frame.place(x=0, y=0)
@@ -11,8 +9,10 @@ def page(root: tk.Tk):
     display_frame.place(x=100, y=210)
 
     owners = fmt_owner(display_frame, database.get_owners())
+    mino = 0
     maxo = min(len(owners), 4)
     total_pages = math.ceil(len(owners) / 4)
+    cur_page = 1
 
     tools.insert_bgimage(frame, "./assets/display.png")
     show_owners(owners[mino:maxo])

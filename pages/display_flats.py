@@ -1,9 +1,7 @@
 import tkinter as tk, tools, database, pages.dashboard, math
 
-minf, maxf, total_pages, cur_page = 0, 0, 0, 1
-
 def page(root: tk.Tk):
-    global minf, maxf, total_pages
+    global minf, maxf, total_pages, cur_page
     
     frame = tk.Frame(root, width=800, height=600)
     frame.place(x=0, y=0)
@@ -11,8 +9,10 @@ def page(root: tk.Tk):
     display_frame.place(x=100, y=210)
 
     flats = fmt_flats(display_frame, database.get_flats())
+    minf = 0
     maxf = min(len(flats), 4)
     total_pages = math.ceil(len(flats) / 4)
+    cur_page = 1
 
     tools.insert_bgimage(frame, "./assets/display.png")
     show_flats(flats[minf:maxf])

@@ -89,7 +89,6 @@ def delete_owner(owner):
     database.commit()
 
 def update_owner(old_owner_info, new_owner_info):
-    if get_owner(new_owner_info[0]) is not None: return 1
     cursor.execute(f"UPDATE owner_detail SET name = '{new_owner_info[0]}', phno = '{new_owner_info[1]}',\
                    email = '{new_owner_info[2]}' WHERE name = '{old_owner_info[0]}'")
     database.commit()
@@ -132,11 +131,16 @@ def sell_flat(flat, owner):
     database.commit()
     return owner_deleted
 
-def modify_flat(flat, new_for_rent, new_tenant):
-    if not new_for_rent: new_tenant = None
+def modify_flat(flat, new_availability, new_for_rent, new_tenant):
+    owned = new_for_rent or (not new_availability)
+    rented = new_for_rent and (not new_availability)
+
+    if not owned: return 2
+    if not rented: new_tenant = None
     elif new_tenant == "": return 1
 
-    cursor.execute("UPDATE flat_detail SET for_rent = %s, tenant_name = %s WHERE flat_number = %s", (new_for_rent, new_tenant, flat[0]))
+    cursor.execute("UPDATE flat_detail SET availability = %s, for_rent = %s, tenant_name = %s WHERE flat_number = %s", 
+                   (new_availability, new_for_rent, new_tenant, flat[0]))
     database.commit()
 
 def get_flats_count():
